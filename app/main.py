@@ -83,23 +83,49 @@ async def health_check():
 @app.get("/api/status", response_model=StatusResponse)
 async def get_status():
     """Get system status and statistics"""
-    # TODO: Implement actual statistics from vector store
-    return StatusResponse(
-        status="ready",
-        statistics={
-            "total_documents": 0,
-            "total_chunks": 0,
-            "embedding_dimension": settings.embedding_dimension,
-            "vector_store_size_mb": 0.0
-        }
-    )
+    try:
+        from app.storage.vector_store import get_vector_store
+        
+        vector_store = get_vector_store()
+        stats = vector_store.get_stats()
+        
+        return StatusResponse(
+            status="ready",
+            statistics={
+                "total_documents": stats.get("total_documents", 0),
+                "total_chunks": stats.get("total_chunks", 0),
+                "embedding_dimension": settings.embedding_dimension,
+                "vector_store_size_mb": stats.get("store_size_mb", 0.0),
+                "memory_usage_mb": stats.get("memory_usage_mb", 0.0)
+            }
+        )
+    except Exception as e:
+        logger.warning(f"Error getting vector store stats: {e}")
+        return StatusResponse(
+            status="ready",
+            statistics={
+                "total_documents": 0,
+                "total_chunks": 0,
+                "embedding_dimension": settings.embedding_dimension,
+                "vector_store_size_mb": 0.0
+            }
+        )
 
 
 # ============= API Routes =============
 
-# TODO: Include API routers when implemented
-# from app.api import ingestion, query
-# app.include_router(ingestion.router, prefix="/api", tags=["ingestion"])
+# Import API routers
+from app.api import ingestion, query
+
+# Include ingestion router
+app.include_router(
+    ingestion.router,
+    prefix="/api",
+    tags=["Ingestion"],
+    responses={404: {"description": "Not found"}}
+)
+
+# Query router will be added in Phase 4
 # app.include_router(query.router, prefix="/api", tags=["query"])
 
 
