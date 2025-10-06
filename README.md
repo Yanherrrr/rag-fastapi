@@ -747,27 +747,6 @@ RETRY_DELAY=1                      # Initial retry delay (seconds)
 5. **Memory Usage**: All embeddings loaded into RAM
    - **Solution**: Implement pagination or disk-backed storage
 
----
-
-## 🔮 Future Enhancements
-
-### Short-term (1-2 weeks)
-- [ ] **Conversation Memory**: Track chat history for context
-- [ ] **Streaming Responses**: Real-time LLM output
-- [ ] **Document Management UI**: Upload/delete via web interface
-- [ ] **Query Analytics**: Track popular queries and performance
-
-### Mid-term (1-2 months)
-- [ ] **Multi-modal Support**: Extract images and tables from PDFs
-- [ ] **Advanced Re-ranking**: Use GPT-4 for semantic re-ranking
-- [ ] **Semantic Caching**: Cache similar queries to reduce costs
-- [ ] **User Authentication**: Multi-user support with API keys
-
-### Long-term (3+ months)
-- [ ] **Production Deployment**: Docker + Kubernetes
-- [ ] **Vector Database**: Migration to Qdrant or Pinecone
-- [ ] **Feedback Loop**: User ratings to improve retrieval
-- [ ] **Fine-tuned Models**: Domain-specific embeddings
 
 ---
 
