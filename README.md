@@ -7,6 +7,9 @@
 [![Tests](https://img.shields.io/badge/tests-169%20passing-brightgreen.svg)](tests/)
 [![Code Coverage](https://img.shields.io/badge/coverage-85%25-brightgreen.svg)](tests/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Built with Cursor](https://img.shields.io/badge/Built%20with-Cursor%20AI-blueviolet)](https://cursor.sh/)
+
+> 💡 **Development Note**: This project was pair-programmed with Cursor AI in ~17 hours, demonstrating modern AI-assisted development while maintaining production-quality architecture, comprehensive testing (169+ tests), and 85% code coverage.
 
 ---
 
@@ -790,11 +793,36 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 Built as a comprehensive demonstration of RAG pipeline implementation from first principles.
 
-**Key Learning Outcomes**:
+### **Development Approach**
+
+Developed through **AI-assisted pair programming** with Cursor AI over ~17 hours, showcasing how modern AI tools amplify developer productivity when combined with strong architectural thinking and quality standards.
+
+**Human-Led Design**:
+- System architecture and component design
+- Algorithm selection (BM25, hybrid search, MMR)
+- Safety policies and edge case handling
+- Test strategy (169+ tests, 85% coverage)
+- UX/UI design decisions
+- Performance optimization and trade-off analysis
+
+**AI-Assisted Implementation**:
+- Code generation and scaffolding
+- Algorithm implementations
+- Test case generation
+- Documentation and examples
+- Debugging assistance
+
+**Result**: Production-quality RAG system with custom vector store, comprehensive safety features, and modern web interface—demonstrating that AI tools are powerful multipliers when guided by clear requirements and quality standards.
+
+### **Key Learning Outcomes**
+
 - Custom vector store implementation (no external DB)
 - BM25 algorithm from scratch
-- Hybrid search with multiple fusion strategies
-- Production safety features (PII detection, disclaimers)
+- Multiple search fusion strategies (weighted, RRF, max)
+- Cross-encoder re-ranking
+- MMR diversity algorithm
+- Intent detection system
+- Safety & privacy features (PII detection, medical/legal/financial disclaimers)
 - Comprehensive testing (169+ tests, 85% coverage)
 - Modern web interface with vanilla JS
 
@@ -802,6 +830,7 @@ Built as a comprehensive demonstration of RAG pipeline implementation from first
 
 ## 🙏 Acknowledgments
 
+- **Cursor AI** for revolutionizing the development experience with AI pair programming
 - **Mistral AI** for the powerful LLM API
 - **Hugging Face** for sentence-transformers and cross-encoders
 - **FastAPI** for the excellent web framework
