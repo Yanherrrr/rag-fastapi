@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG FastAPI - Document Q&A System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>📚 RAG Document Q&A</h1>
+                <p class="subtitle">Ask questions about your uploaded documents</p>
+            </div>
+            <div class="system-status" id="systemStatus">
+                <span class="status-dot"></span>
+                <span class="status-text">Loading...</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="upload-section">
+                    <h2>📤 Upload Documents</h2>
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon">📄</div>
+                        <p class="upload-text">Drop PDF files here or click to browse</p>
+                        <input type="file" id="fileInput" accept=".pdf" multiple hidden>
+                        <button class="btn btn-secondary" id="browseBtn">Browse Files</button>
+                    </div>
+                    <div class="file-list" id="fileList"></div>
+                    <button class="btn btn-primary" id="uploadBtn" disabled>Upload PDFs</button>
+                </div>
+
+                <div class="documents-section">
+                    <h2>📚 Knowledge Base</h2>
+                    <div class="kb-stats" id="kbStats">
+                        <div class="stat-item">
+                            <span class="stat-label">Documents:</span>
+                            <span class="stat-value" id="docCount">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Chunks:</span>
+                            <span class="stat-value" id="chunkCount">0</span>
+                        </div>
+                    </div>
+                    <div class="document-list" id="documentList"></div>
+                    <button class="btn btn-danger btn-sm" id="clearBtn">Clear All</button>
+                </div>
+            </aside>
+
+            <!-- Chat Area -->
+            <main class="chat-area">
+                <div class="chat-header">
+                    <h2>💬 Chat</h2>
+                    <div class="chat-controls">
+                        <button class="btn-icon" id="clearChatBtn" title="Clear chat">🗑️</button>
+                    </div>
+                </div>
+
+                <div class="messages-container" id="messagesContainer">
+                    <div class="welcome-message">
+                        <div class="welcome-icon">👋</div>
+                        <h3>Welcome to RAG Document Q&A!</h3>
+                        <p>Upload PDF documents and ask questions about their content.</p>
+                        <div class="features">
+                            <div class="feature">
+                                <span class="feature-icon">🔍</span>
+                                <span>Hybrid Search (Semantic + Keyword)</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-icon">🤖</span>
+                                <span>AI-Powered Answers (Mistral AI)</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-icon">📖</span>
+                                <span>Source Citations with Page Numbers</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-area">
+                    <div class="input-container">
+                        <textarea 
+                            id="queryInput" 
+                            placeholder="Ask a question about your documents..." 
+                            rows="1"
+                            maxlength="1000"
+                        ></textarea>
+                        <div class="input-actions">
+                            <span class="char-counter" id="charCounter">0/1000</span>
+                            <button class="btn btn-primary" id="sendBtn" disabled>
+                                <span class="btn-text">Send</span>
+                                <span class="btn-icon">📤</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p class="loading-text">Processing...</p>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
+
