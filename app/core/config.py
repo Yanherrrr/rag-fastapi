@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     """Application settings loaded from environment variables"""
     
     # Mistral AI Configuration
-    mistral_api_key: str = "CF2DvjIoshzasO0mtBkPj44fo2nXDwPk"
+    MISTRAL_API_KEY: Optional[str] = None
     
     # Embedding Configuration
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
