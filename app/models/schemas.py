@@ -15,6 +15,7 @@ class Intent(str, Enum):
     CHITCHAT = "chitchat"
     CLARIFICATION = "clarification"
     GOODBYE = "goodbye"
+    REFUSED = "refused"  # For queries that violate safety policies
 
 
 # ============= Base Models =============

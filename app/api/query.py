@@ -19,6 +19,7 @@ from app.core.hybrid_search import hybrid_search_with_fallback
 from app.core.reranking import rerank_results
 from app.core.search import has_sufficient_evidence
 from app.core.llm import generate_answer
+from app.core.safety import check_query_safety
 from app.storage.vector_store import get_vector_store
 from app.core.keyword_search import get_bm25_index
 
@@ -65,6 +66,29 @@ async def query_knowledge_base(request: QueryRequest):
     logger.info(f"Query received: {request.query[:100]}...")
     
     try:
+        # Step 0: Safety check (before intent detection to save costs)
+        safety_check = check_query_safety(request.query)
+        
+        if not safety_check.is_safe:
+            logger.warning(f"Query refused: {safety_check.category} - {request.query[:50]}...")
+            total_time = (time.time() - start_time) * 1000
+            
+            return QueryResponse(
+                status="success",
+                query=request.query,
+                intent="refused",
+                answer=safety_check.refusal_message,
+                sources=[],
+                has_sufficient_evidence=False,
+                metadata=ResponseMetadata(
+                    search_time_ms=0.0,
+                    llm_time_ms=0.0,
+                    total_time_ms=round(total_time, 2)
+                )
+            )
+        
+        logger.info(f"Safety check passed in {safety_check.check_time_ms:.2f}ms")
+        
         # Step 1: Detect intent
         intent = detect_intent(request.query)
         logger.info(f"Detected intent: {intent}")
