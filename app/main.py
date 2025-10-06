@@ -125,8 +125,13 @@ app.include_router(
     responses={404: {"description": "Not found"}}
 )
 
-# Query router will be added in Phase 4
-# app.include_router(query.router, prefix="/api", tags=["query"])
+# Include query router
+app.include_router(
+    query.router,
+    prefix="/api",
+    tags=["Query"],
+    responses={404: {"description": "Not found"}}
+)
 
 
 # ============= Static Files =============
