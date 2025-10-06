@@ -175,6 +175,7 @@ class MistralClient:
                 
             except Exception as e:
                 logger.warning(f"Attempt {attempt + 1}/{self.max_retries} failed: {e}")
+                logger.warning(f"Error type: {type(e).__name__}")
                 
                 if attempt < self.max_retries - 1:
                     # Exponential backoff
@@ -183,8 +184,9 @@ class MistralClient:
                     time.sleep(wait_time)
                 else:
                     logger.error(f"All {self.max_retries} attempts failed")
+                    logger.error(f"Final error: {str(e)}")
                     return {
-                        "answer": "I'm sorry, I encountered an error while generating an answer. Please try again.",
+                        "answer": f"Error: {str(e)}",
                         "tokens_used": 0,
                         "model": self.model,
                         "error": str(e)
